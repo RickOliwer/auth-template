@@ -3,10 +3,13 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../index";
 import * as schema from "../db/schema";
 import { nextCookies } from "better-auth/next-js";
+import { sendEmail } from "./actions/email";
+import { emailOTP } from "better-auth/plugins";
 
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
+    requireEmailVerification: true,
   },
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -17,5 +20,24 @@ export const auth = betterAuth({
     account: schema.account,
     verification: schema.verification,
   },
-  plugins: [nextCookies()],
+  plugins: [
+    nextCookies(),
+    emailOTP({
+      sendVerificationOnSignUp: true,
+      async sendVerificationOTP({ email, otp, type }) {
+        if (type === "email-verification") {
+          await sendEmail({
+            to: email,
+            subject: "Verify your email address",
+            text: `Your verification code is: ${otp}`,
+            html: `
+              <h2>Verify Your Email</h2>
+              <p>Your verification code is: <strong>${otp}</strong></p>
+              <p>This code will expire in 5 minutes.</p>
+            `,
+          });
+        }
+      },
+    }),
+  ],
 });
