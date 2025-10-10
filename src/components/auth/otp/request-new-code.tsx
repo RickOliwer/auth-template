@@ -11,8 +11,8 @@ export default function RequestNewCode(props: RequestNewCodeProps) {
     <Button
       onClick={async () =>
         await authClient.emailOtp.sendVerificationOtp({
-          email: props.email, // required
-          type: "email-verification", // required
+          email: props.email,
+          type: "email-verification",
         })
       }
     >

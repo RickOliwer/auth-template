@@ -27,7 +27,6 @@ export async function sendEmail(props: SendEmailSchema) {
   }
 
   try {
-    // Fix the type issue by using text and html properties instead of content
     const msg = {
       to: validatedData.to,
       from: process.env.SENDGRID_FROM_EMAIL!,
