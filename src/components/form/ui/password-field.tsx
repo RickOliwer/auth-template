@@ -1,22 +1,24 @@
+// src/components/form/ui/password-field.tsx
 import React from "react";
-
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordInput } from "@/components/form/ui/password-input";
 import { FieldErrors } from "@/components/form/ui/field-error";
 import { useFieldContext } from "../useAppForm";
 
-type TextFieldProps = {
+type PasswordFieldProps = {
   label: string;
   labelHidden?: boolean;
   disablFieldError?: boolean;
+  showToggle?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-export const TextField = ({
+export const PasswordField = ({
   label,
   labelHidden = false,
   disablFieldError = false,
+  showToggle = true,
   ...inputProps
-}: TextFieldProps) => {
+}: PasswordFieldProps) => {
   const field = useFieldContext<string>();
 
   return (
@@ -25,7 +27,7 @@ export const TextField = ({
         <Label htmlFor={field.name} className={labelHidden ? "sr-only" : ""}>
           {label}
         </Label>
-        <Input
+        <PasswordInput
           id={field.name}
           aria-invalid={
             field.state.meta.isTouched && field.state.meta.errors.length > 0
@@ -33,6 +35,7 @@ export const TextField = ({
           value={field.state.value}
           onChange={(e) => field.handleChange(e.target.value)}
           onBlur={field.handleBlur}
+          showToggle={showToggle}
           {...inputProps}
         />
       </div>

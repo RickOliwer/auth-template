@@ -2,36 +2,35 @@
 
 import { headers } from "next/headers";
 import { auth } from "../auth";
+import { redirect } from "next/navigation";
 
-export async function signUP(email: string, password: string, name: string) {
-  const result = await auth.api.signUpEmail({
+export async function signUp(email: string, password: string, name: string) {
+  await auth.api.signUpEmail({
     body: {
       name,
       email,
       password,
-      callbackURL: "/dashboard",
     },
   });
 
-  return result;
+  redirect("/");
 }
 
 export async function signIn(email: string, password: string) {
-  const result = await auth.api.signInEmail({
+  await auth.api.signInEmail({
     body: {
       email,
       password,
-      callbackURL: "/dashboard",
     },
   });
 
-  return result;
+  redirect("/dashboard");
 }
 
 export async function signOut() {
-  const result = await auth.api.signOut({
+  await auth.api.signOut({
     headers: await headers(),
   });
 
-  return result;
+  redirect("/");
 }
