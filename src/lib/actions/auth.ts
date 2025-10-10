@@ -13,18 +13,33 @@ export async function signUp(email: string, password: string, name: string) {
     },
   });
 
-  redirect("/");
+  redirect(`/auth/verify-email?email=${encodeURIComponent(email)}`);
 }
 
 export async function signIn(email: string, password: string) {
-  await auth.api.signInEmail({
-    body: {
-      email,
-      password,
-    },
-  });
+  try {
+    const data = await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+    });
 
-  redirect("/dashboard");
+    redirect("/dashboard");
+  } catch (error: any) {
+    if (error.statusCode === 403) {
+      // Note: statusCode, not status
+      await auth.api.sendVerificationOTP({
+        body: {
+          email: email, // required
+          type: "email-verification", // required
+        },
+      });
+      redirect(`/auth/verify-email?email=${encodeURIComponent(email)}`);
+    }
+
+    throw error;
+  }
 }
 
 export async function signOut() {
