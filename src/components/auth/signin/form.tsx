@@ -1,8 +1,5 @@
-// src/app/signup/page.tsx
 "use client";
 
-import { TextField } from "@/components/form/ui/text-field";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,33 +7,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { signUp } from "@/lib/actions/auth";
+import { signIn } from "@/lib/actions/auth";
 import Link from "next/link";
 import useAppForm from "@/components/form/useAppForm";
-import { SignupFormData, signupSchema } from "@/lib/schemas/auth";
+import { SigninFormData, signinSchema } from "@/lib/schemas/auth";
 
-export default function SignupForm() {
+export default function SigninForm() {
   const form = useAppForm({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
-    } as SignupFormData,
+    } as SigninFormData,
     validators: {
-      onChange: signupSchema,
+      onChange: signinSchema,
     },
     onSubmit: async ({ value }) => {
       try {
         // Validate with Zod before submission
-        const validatedData = signupSchema.parse(value);
-        await signUp(
-          validatedData.email,
-          validatedData.password,
-          validatedData.name
-        );
+        const validatedData = signinSchema.parse(value);
+        await signIn(validatedData.email, validatedData.password);
       } catch (error) {
-        console.error("Signup error:", error);
+        console.error("Signin error:", error);
         // Re-throw to prevent form submission success
         throw error;
       }
@@ -65,17 +56,6 @@ export default function SignupForm() {
               }}
               className="space-y-6"
             >
-              <form.AppField name="name">
-                {(field) => (
-                  <field.TextField
-                    label="Full Name"
-                    name="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                  />
-                )}
-              </form.AppField>
-
               <form.AppField name="email">
                 {(field) => (
                   <field.TextField
@@ -94,17 +74,6 @@ export default function SignupForm() {
                     name="password"
                     type="password"
                     placeholder="Create a strong password"
-                  />
-                )}
-              </form.AppField>
-
-              <form.AppField name="confirmPassword">
-                {(field) => (
-                  <field.PasswordField
-                    label="Confirm Password"
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="Confirm your password"
                   />
                 )}
               </form.AppField>
