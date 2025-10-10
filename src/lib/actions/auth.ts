@@ -18,7 +18,7 @@ export async function signUp(email: string, password: string, name: string) {
 
 export async function signIn(email: string, password: string) {
   try {
-    const data = await auth.api.signInEmail({
+    await auth.api.signInEmail({
       body: {
         email,
         password,
@@ -26,13 +26,16 @@ export async function signIn(email: string, password: string) {
     });
 
     redirect("/dashboard");
-  } catch (error: any) {
-    if (error.statusCode === 403) {
-      // Note: statusCode, not status
+  } catch (error: unknown) {
+    if (
+      error instanceof Error &&
+      "statusCode" in error &&
+      error.statusCode === 403
+    ) {
       await auth.api.sendVerificationOTP({
         body: {
-          email: email, // required
-          type: "email-verification", // required
+          email: email,
+          type: "email-verification",
         },
       });
       redirect(`/auth/verify-email?email=${encodeURIComponent(email)}`);

@@ -9,12 +9,7 @@ export const signupSchema = z
       .max(50, "Name must be less than 50 characters")
       .trim(),
 
-    email: z
-      .string()
-      .min(1, "Email is required")
-      .email("Please enter a valid email address")
-      .toLowerCase()
-      .trim(),
+    email: z.email("Please enter a valid email address").toLowerCase().trim(),
 
     password: z
       .string()

@@ -26,7 +26,6 @@ export default function SignupForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        // Validate with Zod before submission
         const validatedData = signupSchema.parse(value);
         await signUp(
           validatedData.email,

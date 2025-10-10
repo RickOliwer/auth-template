@@ -1,9 +1,7 @@
 "use client";
 
 import useAppForm from "@/components/form/useAppForm";
-import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import Link from "next/link";
 
 import z from "zod";
 import RequestNewCode from "./request-new-code";
