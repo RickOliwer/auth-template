@@ -36,8 +36,6 @@ export default function SignupForm() {
           validatedData.name
         );
       } catch (error) {
-        console.error("Signup error:", error);
-        // Re-throw to prevent form submission success
         throw error;
       }
     },
