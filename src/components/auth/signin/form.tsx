@@ -23,7 +23,6 @@ export default function SigninForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        // Validate with Zod before submission
         const validatedData = signinSchema.parse(value);
         await signIn(validatedData.email, validatedData.password);
       } catch (error) {

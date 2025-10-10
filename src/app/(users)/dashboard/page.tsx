@@ -4,7 +4,6 @@ import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
