@@ -24,7 +24,6 @@ export default function AuthClient() {
     },
     onSubmit: async ({ value }) => {
       await new Promise((res) => setTimeout(res, 1000));
-      console.log("Form submitted:", value);
 
       form.reset();
     },

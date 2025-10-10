@@ -28,7 +28,6 @@ export default async function DashboardPage() {
     );
   }
 
-  console.log(session);
   return (
     <div>
       <h1>Dashboard</h1>

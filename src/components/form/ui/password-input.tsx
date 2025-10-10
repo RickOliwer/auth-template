@@ -25,8 +25,7 @@ export const PasswordInput = React.forwardRef<
     e.preventDefault();
     e.stopPropagation();
     const newVisibility = !showPassword;
-    console.log("newVisibility", newVisibility);
-    console.log("showPassword", showPassword);
+
     setShowPassword(newVisibility);
     onToggleVisibility?.(newVisibility);
   };

@@ -27,8 +27,6 @@ export default function SigninForm() {
         const validatedData = signinSchema.parse(value);
         await signIn(validatedData.email, validatedData.password);
       } catch (error) {
-        console.error("Signin error:", error);
-        // Re-throw to prevent form submission success
         throw error;
       }
     },
