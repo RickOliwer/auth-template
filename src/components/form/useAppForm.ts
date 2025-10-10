@@ -1,5 +1,6 @@
 import { createFormHookContexts, createFormHook } from "@tanstack/react-form";
 import { TextField } from "./ui/text-field";
+import { PasswordField } from "./ui/password-field";
 
 // export useFieldContext for use in your custom components
 export const { fieldContext, formContext, useFieldContext } =
@@ -10,6 +11,7 @@ const { useAppForm } = createFormHook({
   formContext,
   fieldComponents: {
     TextField,
+    PasswordField,
   },
   formComponents: {},
 });
