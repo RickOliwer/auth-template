@@ -37,10 +37,10 @@ export default function SigninForm() {
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">
-              Create your account
+              Sign in to your account
             </CardTitle>
             <CardDescription>
-              Sign up to get started with your account
+              Sign in to your account to continue
             </CardDescription>
           </CardHeader>
 
@@ -79,9 +79,7 @@ export default function SigninForm() {
                 <form.AppForm>
                   <form.SubmitButton className="w-full">
                     {" "}
-                    {form.state.isSubmitting
-                      ? "Creating Account..."
-                      : "Create Account"}
+                    {form.state.isSubmitting ? "Signing in..." : "Sign in"}
                   </form.SubmitButton>
                 </form.AppForm>
               </div>
@@ -89,12 +87,12 @@ export default function SigninForm() {
 
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
-                Already have an account?{" "}
+                Don't have an account?{" "}
                 <Link
-                  href="/auth"
+                  href="/signup"
                   className="font-medium text-primary hover:text-primary/80"
                 >
-                  Sign in
+                  Sign up
                 </Link>
               </p>
             </div>

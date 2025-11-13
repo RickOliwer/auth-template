@@ -7,14 +7,6 @@ import DashboardClientComponent from "./(users)/dashboard/client-component";
 export default function Home() {
   return (
     <main>
-      <h1>Home</h1>
-      <Link
-        className={cn(buttonVariants({ variant: "default" }))}
-        href="/signup"
-      >
-        Signup
-      </Link>
-      <DashboardClientComponent />
       <SigninForm />
     </main>
   );
