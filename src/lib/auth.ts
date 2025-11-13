@@ -32,6 +32,11 @@ export const auth = betterAuth({
             text: `Your verification code is: ${otp}`,
             html: `
               <h2>Verify Your Email</h2>
+              <p>Click <a href="${
+                process.env.NEXT_PUBLIC_APP_URL
+              }/auth/verify-email?email=${encodeURIComponent(
+              email
+            )}">here</a> to verify your email.</p>
               <p>Your verification code is: <strong>${otp}</strong></p>
               <p>This code will expire in 5 minutes.</p>
             `,

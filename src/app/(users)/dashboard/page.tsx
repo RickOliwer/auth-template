@@ -12,27 +12,15 @@ export default async function DashboardPage() {
 
   if (!session) {
     return (
-      <div>
+      <main className="flex items-center justify-center h-screen">
         <h1>You are not logged in</h1>
-        <Link className={cn(buttonVariants({ variant: "default" }))} href="/">
-          Login
-        </Link>
-        <Link
-          className={cn(buttonVariants({ variant: "secondary" }))}
-          href="/signup"
-        >
-          Signup
-        </Link>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <form action={signOut}>
-        <Button type="submit">Signout</Button>
-      </form>
-    </div>
+    <main className="flex items-center justify-center h-screen">
+      <h1>Welcome, {session.user?.name}!</h1>
+    </main>
   );
 }

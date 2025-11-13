@@ -49,7 +49,7 @@ export default function OTPForm(props: OTPFormProps) {
     },
   });
   return (
-    <div>
+    <div className="space-y-6">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -63,12 +63,16 @@ export default function OTPForm(props: OTPFormProps) {
         </form.AppField>
         <form.AppForm>
           <form.SubmitButton className="w-full">
-            {" "}
-            {form.state.isSubmitting ? "Verifying OTP..." : "Verify OTP"}
+            {form.state.isSubmitting ? "Verifying..." : "Verify Email"}
           </form.SubmitButton>
         </form.AppForm>
       </form>
-      <RequestNewCode email={props.email} />
+      <div className="text-center">
+        <p className="text-sm text-muted-foreground mb-2">
+          Didn't receive the code?
+        </p>
+        <RequestNewCode email={props.email} />
+      </div>
     </div>
   );
 }

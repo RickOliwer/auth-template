@@ -1,19 +1,20 @@
-"use client";
-
-import * as React from "react";
 import Link from "next/link";
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-const components: { title: string; href: string }[] = [
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { Button } from "../ui/button";
+import { LogOutIcon } from "lucide-react";
+import { signOut } from "@/lib/actions/auth";
+
+const componentsLoggedOut: { title: string; href: string }[] = [
   {
     title: "Login",
     href: "/",
@@ -24,26 +25,68 @@ const components: { title: string; href: string }[] = [
   },
 ];
 
-export default function Nav() {
+const componentsLoggedIn: { title: string; href: string }[] = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+  },
+];
+
+export default async function Nav() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return (
+      <nav className="flex items-center justify-between w-full">
+        <NavigationMenu>
+          <NavigationMenuList className="flex-wrap">
+            {componentsLoggedOut.map((component) => (
+              <NavigationMenuItem key={component.title}>
+                <NavigationMenuLink
+                  asChild
+                  className={navigationMenuTriggerStyle()}
+                >
+                  <Link href={component.href}>{component.title}</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </nav>
+    );
+  }
   return (
-    <NavigationMenu>
-      <NavigationMenuList className="flex-wrap">
-        {components.map((component) => (
-          <NavigationMenuItem key={component.title}>
+    <nav className="flex items-center justify-between w-full">
+      <NavigationMenu>
+        <NavigationMenuList className="flex-wrap">
+          {componentsLoggedIn.map((component) => (
+            <NavigationMenuItem key={component.title}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href={component.href}>{component.title}</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
+          <NavigationMenuItem>
             <NavigationMenuLink
               asChild
               className={navigationMenuTriggerStyle()}
             >
-              <Link href={component.href}>{component.title}</Link>
+              <Link href="/docs">Docs</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
-        ))}
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/docs">Docs</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <form action={signOut}>
+        <Button type="submit" variant="outline">
+          {session.user?.name}
+          <LogOutIcon className="w-4 h-4" />
+        </Button>
+      </form>
+    </nav>
   );
 }

@@ -5,6 +5,8 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-md: var(--background-md);
+  --color-background-lg: var(--background-lg);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -43,9 +45,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-:root {
-  --radius: 0.625rem;
+.light {
   --background: oklch(1 0 0);
+  --background-md: oklch(0.95 0 0);
+  --backgound-lg: oklch(0.85 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -78,8 +81,11 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+:root {
+  --radius: 0.625rem;
   --background: oklch(0.145 0 0);
+  --background-md: oklch(0.195 0 0);
+  --background-lg: oklch(0.245 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
