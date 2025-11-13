@@ -11,6 +11,7 @@ export default function RequestNewCode(props: RequestNewCodeProps) {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <Button
+      variant="link"
       onClick={async () => {
         setIsLoading(true);
         const { data, error } = await authClient.emailOtp.sendVerificationOtp({
@@ -26,8 +27,9 @@ export default function RequestNewCode(props: RequestNewCodeProps) {
         }
       }}
       disabled={isLoading}
+      className="h-auto p-0"
     >
-      {isLoading ? "Sending new code..." : "Resend code"}
+      {isLoading ? "Sending..." : "Resend verification code"}
     </Button>
   );
 }

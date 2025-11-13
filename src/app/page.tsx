@@ -1,20 +1,18 @@
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
 import SigninForm from "@/components/auth/signin/form";
-import DashboardClientComponent from "./(users)/dashboard/client-component";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session) {
+    return redirect("/dashboard");
+  }
   return (
     <main>
-      <h1>Home</h1>
-      <Link
-        className={cn(buttonVariants({ variant: "default" }))}
-        href="/signup"
-      >
-        Signup
-      </Link>
-      <DashboardClientComponent />
       <SigninForm />
     </main>
   );
